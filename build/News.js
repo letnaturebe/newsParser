@@ -1,7 +1,11 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.News = void 0;
 /* eslint-disable no-console */
+var fs_1 = __importDefault(require("fs"));
 var News = /** @class */ (function () {
     function News(id, provider, link, title, content, writer) {
         this._id = id;
@@ -60,6 +64,20 @@ var News = /** @class */ (function () {
         console.log("Content:", this.content);
         console.log("Writer:", this.writer);
     };
+    News.prototype.createFile = function () {
+        if (fs_1.default.existsSync(News.FILE_PATH)) {
+            fs_1.default.unlink(News.FILE_PATH, function (err) {
+                if (err) {
+                    return;
+                }
+            });
+        }
+        fs_1.default.writeFile(News.FILE_PATH, this.content, function (err) {
+            if (err)
+                throw err;
+        });
+    };
+    News.FILE_PATH = "result.txt";
     return News;
 }());
 exports.News = News;

@@ -19,5 +19,6 @@ describe("parser class test", () => {
     expect(news.writer).toEqual("강영국(sumur@mkinternet.com)");
 
     news.checkData();
+    news.createFile();
   });
 });
